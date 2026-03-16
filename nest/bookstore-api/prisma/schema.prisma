@@ -1,0 +1,21 @@
+// Prisma Schema für die Bookstore-API
+// SQLite für schnelles Workshop-Setup
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Book {
+  id            Int      @id @default(autoincrement())
+  title         String
+  isbn          String   @unique
+  author        String
+  publishedYear Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

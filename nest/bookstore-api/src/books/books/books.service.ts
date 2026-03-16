@@ -14,4 +14,8 @@ export class BooksService {
 
         return  this.books;
     }
+
+    async getBookById(id: number) {
+        return this.books.find(book => book.id === id);
+    }
 }
