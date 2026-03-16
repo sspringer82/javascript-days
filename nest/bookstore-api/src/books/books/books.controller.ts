@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, NotImplementedException, Param, Post, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Book, CreateBookDto } from 'src/book/book/book';
@@ -26,6 +26,12 @@ export class BooksController {
         }
 
         return book;
+    }
+
+    @Put(':id')
+    @ApiResponse({status: 501, description: 'Not implemented'})
+    async update(@Param('id') id: string, @Body() updateBookDto: CreateBookDto) {
+        throw new NotImplementedException();
     }
 
     @Post()
