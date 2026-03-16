@@ -1,9 +1,11 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { BooksService } from './books.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Controller('books')
 export class BooksController {
-    constructor(private readonly booksService: BooksService) { }
+    constructor(private readonly booksService: BooksService, 
+        private readonly prismaService: PrismaService) { }
 
     @Get()
     getAllBooks() {
@@ -13,13 +15,22 @@ export class BooksController {
     @Get(':id')
     async getBookById(@Param('id') id: string) {
         const parsedId = parseInt(id, 10);
+        const book = await this.prismaService.book.findUnique({where: {id: parsedId }})
 
-        const book =  await this.booksService.getBookById(parsedId);
-        
+
+
+        // const book =  await this.booksService.getBookById(parsedId);
+
         if (book === undefined) {
             throw new NotFoundException(`Book with id ${id} not found`);
         }
 
         return book;
+    }
+
+    async create(createBookDto: any) {
+        return this.prismaService.book.create({
+            data: createBookDto,
+        });
     }
 }
