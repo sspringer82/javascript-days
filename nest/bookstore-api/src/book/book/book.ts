@@ -20,6 +20,11 @@ export class CreateBookDto {
     publishedYear: number;
 }
 
+class Comment {
+    @ApiProperty()
+    comment: string;
+}
+
 
 export class Book {
     @ApiProperty()
@@ -32,4 +37,6 @@ export class Book {
     author: string;
     @ApiProperty({example: 2020})
     publishedYear: number;
+    @ApiProperty({type: [Comment]})
+    comments: Comment[];
 }

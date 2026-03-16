@@ -33,3 +33,5 @@ nest generate service books books
 10. Service nutzen
 
 curl -X POST http://localhost:3000/books -H "Content-Type: application/json" -d '{"title": "my test book vol2", "isbn": "978-3-86680-192-9", "author": "John Doe", "publishedYear": 2026}'
+
+curl -X POST http://localhost:3000/books/1/comments -H "Content-Type: application/json" -d '{"comment": "super buch!"}'
