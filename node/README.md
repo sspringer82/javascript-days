@@ -15,6 +15,10 @@ https://github.com/sspringer82/javascript-days
     * https://www.npmjs.com/
     * https://pnpm.io/
     * https://yarnpkg.com/
+* Testing:
+    * vitest: https://vitest.dev/
+    * node test runner: https://nodejs.org/docs/latest/api/test.html
+    * assertions: https://nodejs.org/docs/latest/api/test.html
 
 # 10 Things i regret about Node.js
 
