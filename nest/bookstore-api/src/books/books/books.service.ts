@@ -1,21 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { setTimeout } from 'node:timers/promises';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class BooksService {
-    private books = [
-            { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald' },
-            { id: 2, title: 'To Kill a Mockingbird', author: 'Harper Lee' },
-            { id: 3, title: '1984', author: 'George Orwell' },
-        ]
-;
-    async getAllBooks() {
-        await setTimeout(1_000);
 
-        return  this.books;
+    constructor(private readonly prismaService: PrismaService) { }
+
+    async getAllBooks() {
+        return this.prismaService.book.findMany();
     }
 
     async getBookById(id: number) {
-        return this.books.find(book => book.id === id);
+        return this.prismaService.book.findUnique({ where: { id } });
+    }
+
+    async create(createBookDto: any) {
+        return this.prismaService.book.create({
+            data: createBookDto,
+        });
     }
 }
