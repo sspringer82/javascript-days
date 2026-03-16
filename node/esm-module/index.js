@@ -16,3 +16,6 @@ const numbers = new Array(5);
 _.fill(numbers, 7);
 
 console.log(numbers); // [7, 7, 7, 7, 7]
+
+
+console.log(import.meta.dirname)

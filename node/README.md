@@ -1,7 +1,10 @@
 # State of the Art Node.js
 ## Die Plattform verstehen, nicht nur benutzen
 
+
 https://github.com/sspringer82/javascript-days
+
+
 
 # Links
 * https://nodejs.org/en
@@ -19,6 +22,7 @@ https://github.com/sspringer82/javascript-days
     * vitest: https://vitest.dev/
     * node test runner: https://nodejs.org/docs/latest/api/test.html
     * assertions: https://nodejs.org/docs/latest/api/test.html
+* https://semver.org/lang/de/
 
 # 10 Things i regret about Node.js
 
