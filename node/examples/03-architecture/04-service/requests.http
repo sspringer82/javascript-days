@@ -1,0 +1,36 @@
+### Requests für die VS Code Extension "REST Client" (oder curl)
+@base = http://localhost:3000
+
+### Health
+GET {{base}}/health
+
+### Task anlegen
+POST {{base}}/tasks
+content-type: application/json
+x-request-id: demo-123
+
+{ "title": "Node.js als Plattform verstehen" }
+
+### Alle Tasks
+GET {{base}}/tasks
+
+### Nur offene Tasks
+GET {{base}}/tasks?done=false
+
+### Task erledigen
+PATCH {{base}}/tasks/1
+content-type: application/json
+
+{ "done": true }
+
+### Validierungsfehler
+POST {{base}}/tasks
+content-type: application/json
+
+{ "title": "" }
+
+### Nicht gefunden
+GET {{base}}/tasks/999
+
+### Löschen
+DELETE {{base}}/tasks/1

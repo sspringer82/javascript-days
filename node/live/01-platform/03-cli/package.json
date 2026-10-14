@@ -1,0 +1,9 @@
+{
+  "name": "cli-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env cli.js --name JSDays",
+    "dev": "node --watch --env-file=.env cli.js --verbose"
+  }
+}

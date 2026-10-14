@@ -1,0 +1,103 @@
+# Für die VS-Code-Extension „REST Client“ (oder IntelliJ HTTP Client)
+# Server: npm run start:dev
+
+@baseUrl = http://localhost:3000
+
+### Health Check (öffentlich)
+GET {{baseUrl}}/health
+
+### Ohne Token → 401
+GET {{baseUrl}}/tasks
+
+### Registrieren
+POST {{baseUrl}}/auth/register
+content-type: application/json
+
+{ "email": "basti@example.com", "password": "geheim123" }
+
+### Ungültige Eingaben → 400
+POST {{baseUrl}}/auth/register
+content-type: application/json
+
+{ "email": "kein-mail", "password": "kurz" }
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+content-type: application/json
+
+{ "email": "basti@example.com", "password": "geheim123" }
+
+### Login als Admin (aus .env)
+# @name adminLogin
+POST {{baseUrl}}/auth/login
+content-type: application/json
+
+{ "email": "admin@example.com", "password": "admin-passwort" }
+
+@token = {{login.response.body.accessToken}}
+@adminToken = {{adminLogin.response.body.accessToken}}
+
+### Eigenes Profil – ohne passwordHash
+GET {{baseUrl}}/users/me
+authorization: Bearer {{token}}
+
+### Alle Benutzer – als User 403
+GET {{baseUrl}}/users
+authorization: Bearer {{token}}
+
+### Alle Benutzer – als Admin
+GET {{baseUrl}}/users
+authorization: Bearer {{adminToken}}
+
+### Task anlegen
+POST {{baseUrl}}/tasks
+authorization: Bearer {{token}}
+content-type: application/json
+
+{ "title": "  Nest lernen  " }
+
+### Leerer Titel → 400
+POST {{baseUrl}}/tasks
+authorization: Bearer {{token}}
+content-type: application/json
+
+{ "title": "" }
+
+### Tasks auflisten (Query wird umgewandelt)
+GET {{baseUrl}}/tasks?done=false&limit=10
+authorization: Bearer {{token}}
+
+### Ungültige Query → 400
+GET {{baseUrl}}/tasks?limit=abc
+authorization: Bearer {{token}}
+
+### Einzelner Task
+GET {{baseUrl}}/tasks/1
+authorization: Bearer {{token}}
+
+### Ungültige ID → 400 (ParseIdPipe)
+GET {{baseUrl}}/tasks/abc
+authorization: Bearer {{token}}
+
+### Unbekannter oder fremder Task → 404 (DomainExceptionFilter)
+GET {{baseUrl}}/tasks/999
+authorization: Bearer {{token}}
+
+### Erledigt markieren
+PATCH {{baseUrl}}/tasks/1
+authorization: Bearer {{token}}
+content-type: application/json
+
+{ "done": true }
+
+### Leeres Update → 400
+PATCH {{baseUrl}}/tasks/1
+authorization: Bearer {{token}}
+content-type: application/json
+
+{}
+
+### Löschen → 204
+DELETE {{baseUrl}}/tasks/1
+authorization: Bearer {{token}}

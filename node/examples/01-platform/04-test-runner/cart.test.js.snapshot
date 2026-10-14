@@ -1,0 +1,17 @@
+exports[`Cart > serialisiert den Warenkorb stabil 1`] = `
+{
+  "items": [
+    {
+      "sku": "book",
+      "price": 20,
+      "quantity": 2
+    },
+    {
+      "sku": "pen",
+      "price": 2.5,
+      "quantity": 1
+    }
+  ],
+  "total": 42.5
+}
+`;
